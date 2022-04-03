@@ -4,15 +4,28 @@ import AppColours from "../config/AppColours"
 import AppScreen from '../components/AppScreen'
 import Constants from "expo-constants"
 import AppText from "../components/AppText"
+import AppButton from "../components/AppButton"
 
-export default function WelcomeScreen() {
+export default function WelcomeScreen({navigation}) {
     return (
-        <AppScreen style = {styles.container}>
+        <AppScreen style={styles.container}>
             <Image
-            style ={styles.image}
-            source = {require("../assets/logo1.png")}
+                style={styles.image}
+                source={require("../assets/logo1.png")}
             />
-            <AppText styles ={styles.heading}>Welcome</AppText>
+            <AppText style={styles.heading}>Welcome</AppText>
+
+            <AppButton
+                title={"Login"}
+                onPress={() => navigation.navigate("LoginScreen")}
+                style={{ marginTop: 100 }}
+            />
+
+            <AppButton
+                title={"Sign up"}
+                onPress={() => navigation.navigate("SignupScreen")}
+                style={{ marginTop: 80 }}
+            />
         </AppScreen>
     )
 }
@@ -25,7 +38,9 @@ const styles = StyleSheet.create({
         height: 155,
     },
     heading:{
+        marginTop:50,
         fontSize:40,
-        alignSelf:'center'
-    }
+        alignSelf:'center',
+    },
+
 })

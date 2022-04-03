@@ -1,10 +1,7 @@
 import { Text, StyleSheet, View } from "react-native"
-import React, { Component } from "react"
-import { SafeAreaView } from "react-native"
-import AppColours from "../config/AppColours"
-import Constants from "expo-constants"
+import React from "react"
 
-export default function AppText({ children, style }) {
+export default function AppText({ style, children }) {
     return (
         <Text style = {[styles.text,style]}>{children}</Text>
     )

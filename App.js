@@ -1,21 +1,11 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import AppScreen from './app/components/AppScreen';
-import WelcomeScreen from "./app/screens/WelcomeScreen"
+import React from "react"
+
+import { NavigationContainer } from "@react-navigation/native"
+import StackNavigator from "./app/navigation/StackNavigator"
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <WelcomeScreen>
-
-      </WelcomeScreen>
-
-</View>
-  );
+    return (
+        <NavigationContainer>
+            <StackNavigator />
+        </NavigationContainer>
+    )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    
-  },
-});
