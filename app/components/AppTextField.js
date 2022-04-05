@@ -19,7 +19,7 @@ export default function AppTextInput({icon, ...otherprops}) {
 
 const styles = StyleSheet.create({
     container:{
-        marginVertical:20,
+        marginVertical:15,
         backgroundColor: AppColours.inputColour,
         padding:10,
         borderRadius:10,
