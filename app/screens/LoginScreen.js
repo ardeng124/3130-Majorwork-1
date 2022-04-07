@@ -7,7 +7,10 @@ import AppText from "../components/AppText"
 import { Formik } from 'formik';
 import AppButton from "../components/AppButton"
 import * as Yup from 'yup';
-import * as auth from "../config/auth"
+import DataManager from "../config/DataManager"
+import BackButton from "../components/BackButton"
+
+data = DataManager.getInstance()
 
 
 
@@ -21,6 +24,7 @@ const schema = Yup.object().shape(
 export default function LoginScreen({ navigation }) {
     return (
         <AppScreen>
+            <BackButton text="Back" navigation={navigation} backScreen="WelcomeScreen"/>
             <Image
                 style={styles.image}
                 source={require("../assets/logo1.png")}
@@ -29,10 +33,19 @@ export default function LoginScreen({ navigation }) {
 
             <Formik initialValues={{email: "", password: "",}}
                 onSubmit = {(values, {resetForm})=> {
-                    if(auth.validateUser(values)) {
-                        navigation.navigate("AccountScreen")
+                    if(data.validateUser(values)) {
                         resetForm()
-                    }else {
+                        data.setUser(values.email)
+                        navigation.navigate("TabNavigator", {
+                            screen: "Home",
+                            params:{
+                                screen:"Home",
+                                params:{ 
+                                    userName:data.getUser(values.email).name
+                                },
+                            }
+                        })
+                    }else { 
                         resetForm()
                         alert("Login details invalid")
                     }
@@ -50,7 +63,6 @@ export default function LoginScreen({ navigation }) {
                     textContentType="emailAddress"
                     onBlur = {() => setFieldTouched("email")}
                     onChangeText = {handleChange("email")}
-
                     />
                 <AppText style = {styles.errorText}> {errors.email}</AppText>
                 <AppTextInput 
@@ -62,7 +74,6 @@ export default function LoginScreen({ navigation }) {
                     value={values.password}
                     onBlur = {() => setFieldTouched("password") }
                     onChangeText = {handleChange("password")}
-
                     />
                 <AppText style = {styles.errorText}> {errors.password}</AppText>
 

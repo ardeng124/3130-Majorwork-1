@@ -7,9 +7,10 @@ import AppText from "../components/AppText"
 import { Formik } from 'formik';
 import AppButton from "../components/AppButton"
 import * as Yup from 'yup';
-import * as auth from "../config/auth"
+import DataManager from "../config/DataManager"
+import BackButton from "../components/BackButton"
 
-
+data = DataManager.getInstance()
 
 const schema = Yup.object().shape(
     {
@@ -22,6 +23,8 @@ const schema = Yup.object().shape(
 export default function SignupScreen({ navigation }) {
     return (
         <AppScreen>
+            <BackButton text="Back" navigation={navigation} backScreen="WelcomeScreen"/>
+
             <Image
                 style={styles.image}
                 source={require("../assets/logo1.png")}
@@ -30,10 +33,19 @@ export default function SignupScreen({ navigation }) {
 
             <Formik initialValues={{email: "", name:"", password: "",}}
                 onSubmit = {(values, {resetForm})=> {
-                    if(!auth.validateUser(values)) {
-                        auth.createNewUser(values)
-                        navigation.navigate("AccountScreen")
+                    if(!data.validateUser(values)) {
+                        data.createNewUser(values)
                         resetForm()
+                        data.setUser(values.email)
+                        navigation.navigate("TabNavigator", {
+                            screen: "Home",
+                            params:{
+                                screen:"Home",
+                                params:{ 
+                                    userName:data.getUser(values.email).name
+                                },
+                            }
+                        })
                     }else {
                         resetForm()
                         alert("User already exists")
@@ -45,7 +57,7 @@ export default function SignupScreen({ navigation }) {
                 {({values, handleChange, handleSubmit, errors, setFieldTouched})=> (
                 <>
 
-                <AppTextInput 
+                <AppTextInput  
                     icon="account" 
                     placeholder="Email Address" 
                     value={values.email}
