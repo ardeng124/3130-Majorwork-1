@@ -3,31 +3,36 @@ import React from "react"
 import { TouchableOpacity } from "react-native"
 import AppText from "./AppText"
 import AppColours from "../config/AppColours"
+import { MaterialCommunityIcons } from "@expo/vector-icons"
 
-export default function AppButton({ title, onPress, ...otherprops }) {
+export default function AppButton({ title, onPress, icon, ...otherprops }) {
     return (
         <TouchableOpacity
             onPress={onPress}
             style={[styles.button, otherprops.style]}>
         
             <AppText style={styles.text}>{title}</AppText>
+            {icon && <MaterialCommunityIcons name = {icon} size = {25}/>}
         </TouchableOpacity>
     )
 }
 
 const styles = StyleSheet.create({
     text:{
-        fontSize:20
+        fontSize:20,
+        marginRight:10
     },
     button:{
         justifyContent:"center",
         alignSelf:'center',
         alignItems:"center",
-        width:"50%",
+        width:"55%",
         paddingLeft:10,
         paddingRight:10,
         paddingVertical:8,
         backgroundColor: AppColours.buttonColour,
         borderRadius:10,
+        flexDirection:'row',
+        margin:5
     }
 })

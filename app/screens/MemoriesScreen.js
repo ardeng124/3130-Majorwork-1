@@ -5,20 +5,28 @@ import AppListImage from '../components/AppListImage'
 import { FlatList } from 'react-native'
 import AppColours from '../config/AppColours'
 import { TouchableOpacity } from 'react-native-web'
-
-    import {MaterialCommunityIcons} from '@expo/vector-icons';
+import {MaterialCommunityIcons} from '@expo/vector-icons';
 import DataManager from '../config/DataManager';
 
 data = DataManager.getInstance()
 
 
-export default function MemoriesScreen() {
+export default function MemoriesScreen({navigation}) {
 
-    var memories = data.getMemories(data.getCurrentUser().email)
+    var initialMemories = data.getMemories(data.getCurrentUser().email)
+    const[refreshing, setRefreshing] = useState(false);
+    const[memories, setMemories] = useState(initialMemories);
 
+    const handleRefresh = () => {
+       setMemories(initialMemories)
+    }
     const handleDelete = (itemToDelete) => {
         data.deleteMemory(itemToDelete.id)
-        memories = data.getMemories(data.getCurrentUser().email)
+        initialMemories = data.getMemories(data.getCurrentUser().email)
+        setMemories(initialMemories)
+    }
+    const handlePress = (item) => {
+        navigation.navigate("Edit Memories", {message:item})
 
     }
 
@@ -26,27 +34,29 @@ export default function MemoriesScreen() {
     <AppScreen>
         <FlatList
             data={memories}
+            refreshing = {refreshing}
+            onRefresh = {() =>  handleRefresh()}
+            
             renderItem ={({item}) => 
             <AppListImage
                 title={item.title}
                 date={item.date}
                 category={item.category}
-
+                
                 image={item.image}
-                onPress={()=>console.log(item)}
-                onRefresh = {() =>  memories = data.getMemories(data.getCurrentUser().email)}
-                onSwipeLeft = {() => {
-                    <View style = {styles.deleteItemView}>
-                        <TouchableOpacity onPress = {handleDelete(item)}>
-                            <MaterialCommunityIcons name={"trash-can"} size={60}/>
-                        </TouchableOpacity>
-                    </View>} }
-                onSwipeRight = {() => {
-                    <View style = {styles.deleteItemView}>
-                        <TouchableOpacity onPress = {handleDelete(item)}>
-                            <MaterialCommunityIcons name={"trash-can"} size={60}/>
-                        </TouchableOpacity>
-                    </View>} }
+                onPress={()=>handlePress(item)}
+                // onSwipeLeft = {() => {
+                //     <View style = {styles.deleteItemView}>
+                //         <TouchableOpacity onPress = {handleDelete(item)}>
+                //             <MaterialCommunityIcons name={"trash-can"} size={60}/>
+                //         </TouchableOpacity>
+                //     </View>} }
+                // onSwipeRight = {() => {
+                //     <View style = {styles.deleteItemView}>
+                //         <TouchableOpacity onPress = {handleDelete(item)}>
+                //             <MaterialCommunityIcons name={"trash-can"} size={60}/>
+                //         </TouchableOpacity>
+                //     </View>} }
             />}
         />
         
@@ -58,5 +68,8 @@ const styles = StyleSheet.create({
     deleteItemView:{
         width:70,
         backgroundColor:AppColours.buttonColour,
+    },
+    listItem:{
+        margin:5
     }
 })

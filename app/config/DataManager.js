@@ -73,4 +73,9 @@ export default class DataManager {
     deleteMemory(id) {
         this.memories = this.memories.filter(memory => memory.id !== id)
     }
+
+    updateMemory(id, newMemory) {
+        memoryToUpdate = this.memories.filter((memory) => memory.id === id)
+        memoryToUpdate = newMemory
+    }
 }
