@@ -16,7 +16,7 @@ const TabNavigator = () => ( //fix up colours
     <HomeTab.Navigator initialRouteName='Home' screenOptions={{headerShown: false, tabBarActiveBackgroundColor:AppColours.tabBarColour, tabBarInactiveBackgroundColor:AppColours.tabBarColour}}>
         <HomeTab.Screen name="Home" component={AccountScreen} options={{tabBarIcon: () =><TabIcon size = {50} name ="home" />}}/>
         <HomeTab.Screen name="Memories" component={MemoriesScreen} options={{tabBarIcon: () =><TabIcon size = {50} name ="format-list-bulleted" />}}/>
-        <HomeTab.Screen name="Edit Memories" component={EditMemories} options={{tabBarIcon: () =><TabIcon size = {50} name ="content-save-edit" />}}/>
+        <HomeTab.Screen name="Edit Memories" component={EditMemories} initialParams={{message:"none"}} options={{tabBarIcon: () =><TabIcon size = {50} name ="content-save-edit" />}}/>
 
     </HomeTab.Navigator>
 )

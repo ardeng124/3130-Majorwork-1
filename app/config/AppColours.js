@@ -4,5 +4,6 @@ export default {
     buttonColour: "#A099C1",
     listItemBackgroundColour:"#A3CDDC",
     inputColour: "#A0C1B9",
+    cardColour:"#ADD5e2"
 
 }   
