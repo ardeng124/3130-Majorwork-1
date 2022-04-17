@@ -5,6 +5,9 @@ import AppText from "./AppText"
 import AppColours from "../config/AppColours"
 import { MaterialCommunityIcons } from "@expo/vector-icons"
 
+//app button:
+// returns a touchable opacity element with a pre defined set of styles that match with the applications theme
+// input parameters are the title, onpress function, icon, and others
 export default function AppButton({ title, onPress, icon, ...otherprops }) {
     return (
         <TouchableOpacity

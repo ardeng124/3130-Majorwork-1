@@ -4,6 +4,9 @@ import { MaterialCommunityIcons } from "@expo/vector-icons"
 import AppText from './AppText'
 import AppColours from '../config/AppColours'
 
+// app filter modal item:
+// returns a touchable opacity for use in the modals
+// used in the app filter modal 
 export default function AppModalItem({ title, onPress}) {
     return (
         <TouchableOpacity onPress={onPress} style={styles.container}>

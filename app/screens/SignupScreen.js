@@ -12,6 +12,7 @@ import BackButton from "../components/BackButton"
 
 data = DataManager.getInstance()
 
+
 const schema = Yup.object().shape(
     {
         email: Yup.string().required().email().label("Email"),
@@ -19,7 +20,7 @@ const schema = Yup.object().shape(
         password:  Yup.string().required().min(5).label("Password"),
     }
 );
-
+//signup screen for user to enter new data 
 export default function SignupScreen({ navigation }) {
     return (
         <AppScreen>
@@ -33,10 +34,13 @@ export default function SignupScreen({ navigation }) {
 
             <Formik initialValues={{email: "", name:"", password: "",}}
                 onSubmit = {(values, {resetForm})=> {
+                    //check if the user data already exists
                     if(!data.validateUser(values)) {
+                        // if user doesnt exist create new user 
                         data.createNewUser(values)
                         resetForm()
                         data.setUser(values.email)
+                        //navigate to tab navigator home screen and pass new user 
                         navigation.navigate("TabNavigator", {
                             screen: "Home",
                             params:{

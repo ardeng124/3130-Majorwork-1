@@ -9,8 +9,10 @@ import * as ImagePicker from 'expo-image-picker';
 import { TouchableOpacity } from 'react-native'
 data = DataManager.getInstance()
 
-
+// the add memory screen, allows the user to add items to the memories list
 export default function AddMemoryScreen({route, navigation}) {
+
+    //States 
     const [selectedImage, setSelectedImage] = useState(null);
     const [title, setTitle] = useState("");
     const [date, setDate]=useState("");
@@ -21,7 +23,7 @@ export default function AddMemoryScreen({route, navigation}) {
     const [dateError, setDateError] = useState("");
     const [imageError, setImageError] = useState("");
 
-
+    //Image picker async function
     let openImagePickerAsync = async () => {
         let permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
 
@@ -40,6 +42,7 @@ export default function AddMemoryScreen({route, navigation}) {
         image = (image.localUri)
         setSelectedImage(image)
     }
+    //Handle submit: creates a new memory object with the values and updates the datamanager instance
     const handleSubmit = () => {
         if(errorChecking()) {
            var newMemory = {
@@ -73,7 +76,7 @@ export default function AddMemoryScreen({route, navigation}) {
             navigation.navigate('Memories')
     }
 }
-
+    //Error checking: makes sure the lengths of each field are correct
     const errorChecking = () => {
         if(title.length>0) {
             setTitleError(title.length<15 ? "" : "Title too long")
@@ -92,10 +95,11 @@ export default function AddMemoryScreen({route, navigation}) {
         }
         setImageError(selectedImage? "" : "Please choose an image")
 
+        //return either true or false based off whether or not any errors occurred
         return((titleError =="")&& (categoryError =="")&& (categoryError =="")&& (selectedImage)? true: false)
 
     }
-
+// main content
 return(
     <AppScreen>
     <></>
@@ -103,49 +107,47 @@ return(
     <AppText style={styles.heading}>
         Create new memory
     </AppText>
+        <TouchableOpacity onPress = { () => {
+            openImagePickerAsync()
+            }} style = {styles.buttonUpload}>
+            <View>
+            <Image
+                style={styles.image}
+                source={{uri: selectedImage}}
+            />
+            </View>
+        </TouchableOpacity>
+        {imageError.length>0? <AppText style = {styles.errorText}>{imageError}</AppText> :<></>}
 
+        <AppTextInput
+            placeholder={"Title"}
+            onChangeText={(inputText) => setTitle(inputText)}
+            value={title}
+            />
+            {titleError.length>0? <AppText style = {styles.errorText}>{titleError}</AppText> :<></>}
+        <AppTextInput
+            placeholder={"Category"}
+            onChangeText={(inputText) => setCategory(inputText)}
+            value={category}
+            />
+            {categoryError.length>0? <AppText style = {styles.errorText}>{categoryError}</AppText> :<></>}
 
-                <TouchableOpacity onPress = { () => {
-                    openImagePickerAsync()
-                    }} style = {styles.buttonUpload}>
-                    <View>
-                    <Image
-                        style={styles.image}
-                        source={{uri: selectedImage}}
-                    />
-                    </View>
-                </TouchableOpacity>
-                {imageError.length>0? <AppText style = {styles.errorText}>{imageError}</AppText> :<></>}
+        <AppTextInput
+            placeholder={"Date"}
+            onChangeText={(inputText) => setDate(inputText)}
+            value={date}
+            />
+            {dateError.length>0? <AppText style = {styles.errorText}>{dateError}</AppText> :<></>}
 
-                <AppTextInput
-                    placeholder={"Title"}
-                    onChangeText={(inputText) => setTitle(inputText)}
-                    value={title}
-                    />
-                    {titleError.length>0? <AppText style = {styles.errorText}>{titleError}</AppText> :<></>}
-                <AppTextInput
-                    placeholder={"Category"}
-                    onChangeText={(inputText) => setCategory(inputText)}
-                    value={category}
-                    />
-                    {categoryError.length>0? <AppText style = {styles.errorText}>{categoryError}</AppText> :<></>}
+        <AppButton
+            title="Create memory"
+            icon="pencil"
+            onPress={handleSubmit}
+        />
 
-                <AppTextInput
-                    placeholder={"Date"}
-                    onChangeText={(inputText) => setDate(inputText)}
-                    value={date}
-                    />
-                    {dateError.length>0? <AppText style = {styles.errorText}>{dateError}</AppText> :<></>}
-
-                <AppButton
-                    title="Create memory"
-                    icon="pencil"
-                    onPress={handleSubmit}
-                />
-
-</AppScreen>
-)
-}
+    </AppScreen>
+    )
+    }
 
 
 const styles = StyleSheet.create({
@@ -154,29 +156,29 @@ const styles = StyleSheet.create({
         alignSelf:'center',
         marginTop:10,
         fontSize:25
-  },
-  image:{
-    padding:5,
-    width:340,
-    height:230,
-    alignSelf:'center',
-    // aspectRatio:1,
-    resizeMode:'contain',
-    borderRadius:5
-  },
-  errorText:{
-    color:"red",
-    fontSize:17,
+    },
+    image:{
+        padding:5,
+        width:340,
+        height:230,
+        alignSelf:'center',
+        // aspectRatio:1,
+        resizeMode:'contain',
+        borderRadius:5
+    },
+    errorText:{
+        color:"red",
+        fontSize:17,
 
-  },
-  buttonUpload:{
-    marginTop:15,
-    marginBottom:15,
-    padding:5,
-    width:350,
-    height:250,
-    alignSelf:'center',
-    backgroundColor:"#c1f6f7",
-    alignItems:'center'
-  }
+    },
+    buttonUpload:{
+        marginTop:15,
+        marginBottom:15,
+        padding:5,
+        width:350,
+        height:250,
+        alignSelf:'center',
+        backgroundColor:"#c1f6f7",
+        alignItems:'center'
+    }
 })

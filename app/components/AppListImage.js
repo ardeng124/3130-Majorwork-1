@@ -4,8 +4,13 @@ import AppColors from '../config/AppColours';
 import AppText from './AppText';
 import { GestureHandlerRootView } from "react-native-gesture-handler"
 import Swipeable from 'react-native-gesture-handler/Swipeable';
+
+//app list image:
+// returns a gesture root view that contains a swipable component
+// this contains a touchable highlight that allows the user to swipe left and right for use in a flat list
 export default function AppListImage({title,date,category, image, icon, onPress, onSwipeLeft, onSwipeRight}) {
   return (
+      //gesture root view enables swipe gestures to work, without it they have no effect
       <GestureHandlerRootView>
           <Swipeable renderRightActions={onSwipeLeft} renderLeftActions={onSwipeRight} overshootLeft={false} overshootRight={false}>
               <TouchableHighlight

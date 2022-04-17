@@ -5,7 +5,9 @@ import AppText from "./AppText"
 import AppColours from "../config/AppColours"
 
 
-
+// App text field:
+// A component that displays a text field with pre defined styling
+// takes an icon as input as well as other props
 export default function AppTextInput({icon, ...otherprops}) {
     return (
         <View style = {styles.container}>

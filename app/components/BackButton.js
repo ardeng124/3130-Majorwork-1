@@ -1,10 +1,12 @@
- import { StyleSheet, Text, View } from 'react-native'
- import React from 'react'
+import { StyleSheet, Text, View } from 'react-native'
+import React from 'react'
 import { TouchableOpacity } from 'react-native'
 import AppText from './AppText'
-import AppColours from '../config/AppColours'
 import {MaterialCommunityIcons} from '@expo/vector-icons';
  
+//back button:
+// back button with back arrow that appears at top of certain screens
+// made to mirror ios and android button UI
  export default function BackButton({text, navigation, backScreen}) {
    return (
        <TouchableOpacity onPress={() => navigation.navigate(backScreen)}>

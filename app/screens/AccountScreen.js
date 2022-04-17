@@ -8,6 +8,8 @@ import BackButton from "../components/BackButton"
 import AppCard from "../components/AppCard"
 
 data = DataManager.getInstance()
+
+// home screen of the application
 export default function AccountScreen({navigation ,route}) {
     return (
         <AppScreen>

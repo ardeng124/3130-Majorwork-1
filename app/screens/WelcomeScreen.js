@@ -1,11 +1,11 @@
 import { Text, StyleSheet, View, Image } from "react-native"
-import React, { Component } from "react"
-import AppColours from "../config/AppColours"
+import React from "react"
 import AppScreen from '../components/AppScreen'
 import Constants from "expo-constants"
 import AppText from "../components/AppText"
 import AppButton from "../components/AppButton"
 
+//welcome screen, the first thing the user sees when opening the application
 export default function WelcomeScreen({navigation}) {
     return (
         <AppScreen style={styles.container}>

@@ -10,7 +10,7 @@ import TabNavigator from "./TabNavigator"
 
 const Stack = createNativeStackNavigator()
 
-export default function AppNavigator(props) {  //Add the order
+export default function AppNavigator(props) {  
     return (
          <Stack.Navigator
             initialRouteName="WelcomeScreen"

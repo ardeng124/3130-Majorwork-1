@@ -11,14 +11,20 @@ import BackButton from '../components/BackButton'
 
 data = DataManager.getInstance()
 
+//yup schema- for data validation, ensures data is of appropriate length
 const schema = Yup.object().shape(
     {
         title: Yup.string().min(1).max(15),
         category:  Yup.string().min(1).max(13),
     }
 );
+
+//edit memories screen: allows users to edit existing memories
 export default function EditMemories({navigation, route}) {
+    //checks if the data has been passed into the application, if it hasnt then display an error message
 if(route.params.item !== 'none') {
+
+    //handle delete: delete the item from the datamanager and show an alert confirming that it was deleted
   var handleDelete = ()=> {
     data.deleteMemory(route.params.item.id)
     Alert.alert(
@@ -49,6 +55,7 @@ if(route.params.item !== 'none') {
                 style={styles.image}
                 source={route && route.params.item.image}
             />
+            {/* formik form */}
             <Formik
                 initialValues={{ title: "", category: "" }}
                 onSubmit={(values, { resetForm }) => {
@@ -83,6 +90,7 @@ if(route.params.item !== 'none') {
                 {({ values, handleChange, handleSubmit, errors, setFieldTouched}) => (
                     <>
                         <AppTextInput
+                        // checks if route exists
                             placeholder={route && route.params.item.title}
                             onChangeText={handleChange("title")}
                             value={values.title}
@@ -114,6 +122,7 @@ if(route.params.item !== 'none') {
     )
   
 } else {
+    //alert saying that a memory must be selected from the previous screen 
   Alert.alert(
       "Oops!",
       "You have to choose a memory first before editing",
@@ -129,8 +138,8 @@ if(route.params.item !== 'none') {
   )
   
 }
-  return( null
-  )
+// react-native components must return something
+  return( null)
     
 }
 

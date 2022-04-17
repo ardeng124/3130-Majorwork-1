@@ -13,40 +13,46 @@ import AppFilterModal from "../components/AppFilterModal";
 
 data = DataManager.getInstance()
 
-
+//memories screen that contains a list of all memories for the specific user
 export default function MemoriesScreen({navigation}) {
-
+    //States
     const[category, setCategory] = useState('NONE');
-    var initialMemories = data.getMemories(data.getCurrentUser().email)
-    
     const[refreshing, setRefreshing] = useState(false);
     const[memories, setMemories] = useState(initialMemories);
     const[modalVisible, setVisible] = useState(false)
-
     const[currentItem, setCurrentItem] = useState("")
-
+    
+    var initialMemories = data.getMemories(data.getCurrentUser().email)
+    
+    //handle refresh: on refresh update the list of memories from the data manager instance
     const handleRefresh = () => {
         data = DataManager.getInstance()
         initialMemories = data.getMemories(data.getCurrentUser().email)
+        //if there is a category then filter out everything that doesn't have that category
         if(category != "NONE") {
             initialMemories = initialMemories.filter(item => item.category == category)
         }
-        console.log(initialMemories)
         setMemories(initialMemories)
     }
+
+    //handle delete: delete the item from the data manager instance
     const handleDelete = (itemToDelete) => {
         data.deleteMemory(itemToDelete.id)
         initialMemories = data.getMemories(data.getCurrentUser().email)
         setMemories(initialMemories)
     }
+
+    //handle press: when the item is pressed set the image modal to be visibile
     const handlePress = (item) => {
         // navigation.navigate("Edit Memories", {message:item})
         setCurrentItem(item)
         setVisible(true)
     }
+    //navigate to the edit items screen
     const handleEdit = (item) => {
         navigation.navigate("Edit memories", {item:item})
     }
+
   return (
       <>
           <AppScreen>
@@ -62,11 +68,11 @@ export default function MemoriesScreen({navigation}) {
                           category={item.category}
                           image={item.image}
                           onPress={() => handlePress(item)}
+                          //swipe gestures
                           onSwipeLeft={() => (
                               <View style={styles.deleteItemView}>
                                   <TouchableOpacity
-                                      onPress={() => handleDelete(item)}
-                                  >
+                                      onPress={() => handleDelete(item)} >
                                       <MaterialCommunityIcons
                                           name={"trash-can"}
                                           size={60}
@@ -77,8 +83,7 @@ export default function MemoriesScreen({navigation}) {
                           onSwipeRight={() => (
                               <View style={styles.editItemView}>
                                   <TouchableOpacity
-                                      onPress={() => handleEdit(item)}
-                                  >
+                                      onPress={() => handleEdit(item)}>
                                       <MaterialCommunityIcons
                                           name={"pencil"}
                                           size={60}
@@ -89,7 +94,6 @@ export default function MemoriesScreen({navigation}) {
                       />
                   )}
               />
-
               <AppFilterModal
                   placeholder={"Filter by"}
                   data={data.getMemories(data.getCurrentUser().email)}
@@ -99,7 +103,7 @@ export default function MemoriesScreen({navigation}) {
                       handleRefresh()
                   }}
               />
-
+     {/* image picker modal */}
               <Modal visible={modalVisible} animationType={'fade'}>
                   < View style={styles.modalStyle}>
                     <Image style = {styles.modalImage} source = {currentItem.image} />

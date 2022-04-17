@@ -1,5 +1,5 @@
 import { Text, StyleSheet, View, Image } from "react-native"
-import React, { Component } from "react"
+import React from "react"
 import AppScreen from "../components/AppScreen"
 import AppTextInput from "../components/AppTextField"
 import Constants from "expo-constants"
@@ -13,7 +13,7 @@ import BackButton from "../components/BackButton"
 data = DataManager.getInstance()
 
 
-
+//yup schema for data validation
 const schema = Yup.object().shape(
     {
         email: Yup.string().required().email().label("Email"),
@@ -21,6 +21,7 @@ const schema = Yup.object().shape(
     }
 );
 
+// login screen, where the user logs into the application with an existing email and password
 export default function LoginScreen({ navigation }) {
     return (
         <AppScreen>
@@ -33,9 +34,11 @@ export default function LoginScreen({ navigation }) {
 
             <Formik initialValues={{email: "", password: "",}}
                 onSubmit = {(values, {resetForm})=> {
+                    //checks with data manager instance if the user data passed is valid
                     if(data.validateUser(values)) {
                         resetForm()
                         data.setUser(values.email)
+                        //navigate to the tab navigator home screen and pass the user as a parameter
                         navigation.navigate("TabNavigator", {
                             screen: "Home",
                             params:{
@@ -55,7 +58,7 @@ export default function LoginScreen({ navigation }) {
             >
                 {({values, handleChange, handleSubmit, errors, setFieldTouched, touched})=> (
                 <>
-
+            {/* text inputs for the email and password */}
                 <AppTextInput 
                     icon="account" 
                     placeholder="Email Address" 

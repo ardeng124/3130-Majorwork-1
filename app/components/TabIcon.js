@@ -3,6 +3,10 @@ import React from 'react'
 import AppColours from '../config/AppColours'
 import {MaterialCommunityIcons} from '@expo/vector-icons';
 
+//Tab icon:
+// a component that returns a small icon for use in the tab bar
+// input parameters are the size and name
+
 export default function TabIcon({size, name}) {
     return (
         <View style={{width: size, height: size, borderRadius: size/2, alignItems:"center", justifyContent:"center"}}>

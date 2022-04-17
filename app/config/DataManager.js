@@ -1,7 +1,8 @@
-import { memo } from "react/cjs/react.production.min";
 
-
+//Data manager is a singleton class which stores all the data for the application
+// a singleton class means that every single component accesses the same instance 
 export default class DataManager {
+    //default user
     users = [
         {
             email: "1@1.com",
@@ -10,6 +11,7 @@ export default class DataManager {
         },
     ]
 
+    //default values
     memories = [
         {
             id: "1",
@@ -62,12 +64,16 @@ export default class DataManager {
             },
         },
     ]
-
+    // static variable ensures it cannot be overwritten
     static myInstance = null
     userEmail = ""
     userName = ""
     currentUser = {}
+    
+    // this variable keeps track of the size of the list so that IDs can be generated from it
     length = this.memories.length
+
+    //this function enables this class to be a singleton, returns the instance
     static getInstance() {
         if (DataManager.myInstance == null) {
             DataManager.myInstance = new DataManager()
@@ -75,10 +81,12 @@ export default class DataManager {
         return this.myInstance
     }
 
+    //get user email: returns the user from the email
     getUser(email) {
         return this.users.find((user) => user.email === email)
     }
 
+    //validate user: returns the user from the array if it exists 
     validateUser({ email, password }) {
         return (
             this.users.filter(
@@ -87,17 +95,23 @@ export default class DataManager {
         )
     }
 
+    //get user email: returns the user email
     getUserEmail() {
         return this.userEmail
     }
+
+    //get current user: returns the current user
     getCurrentUser() {
         return this.users.find((user) => user.email === this.userEmail)
     }
+    
+    //set user: sets the current user
     setUser(email) {
         this.currentUser = this.getUser(email)
         this.userEmail = email
     }
 
+    //create new user: creates a new user and adds it to the users array
     createNewUser({ email, name, password }) {
         this.users.push({
             email: email,
@@ -106,20 +120,28 @@ export default class DataManager {
         })
     }
 
+    //get memories: returns all memories with a matching email
     getMemories(email) {
         return this.memories.filter((memory) => memory.email == email)
     }
+
+    //delete memory: removes a memory from the list based off id
     deleteMemory(id) {
         this.memories = this.memories.filter((memory) => memory.id !== id)
     }
 
+    //update memory: replaces an existing memory in the list with a new one, takes an existing memory as input
     updateMemory(newMemory, oldMemory) {
         var indexToUpdate = this.memories.indexOf(oldMemory)
         this.memories[indexToUpdate] = newMemory
     }
+    
+    //generates a new ID
     getNewID() {
         return this.length+1
     }
+
+    //creates a new memory
     createNewMemory(newMemory) {
         this.memories.push(newMemory)
         this.length = this.length+1

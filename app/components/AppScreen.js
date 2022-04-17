@@ -2,8 +2,11 @@ import { Text, StyleSheet, View } from 'react-native'
 import React from 'react'
 import { SafeAreaView } from 'react-native'
 import AppColours from '../config/AppColours'
-  import Constants from "expo-constants"
+//imported here to set the height of the view to the statusbar height
+import Constants from "expo-constants"
 
+// app screen:
+// the default app screen component used on every screen with padding, view height, and colour all pre defined for simplicity
 export default function AppScreen({children, style}) {
     return (
         <SafeAreaView style={[styles.screen, style]}>

@@ -8,7 +8,7 @@ import EditMemories from "../screens/EditMemories"
 
 const Stack = createNativeStackNavigator()
 
-export default function MemoriesStackNavigator(props) {  //Add the order
+export default function MemoriesStackNavigator(props) { 
     return (
          <Stack.Navigator
             initialRouteName="MemoriesScreen"

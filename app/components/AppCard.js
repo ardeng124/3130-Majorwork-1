@@ -3,6 +3,9 @@ import React from 'react'
 import AppText from './AppText'
 import AppColours from '../config/AppColours'
 
+//App card:
+// returns a card component with pre defined styles and layout
+// input paramters are the title text, subtitle, and images
 export default function AppCard({title, subtitle, image, ...otherprops}) {
   return (
       <View style={styles.container}>
