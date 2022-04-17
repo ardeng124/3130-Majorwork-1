@@ -67,6 +67,7 @@ export default class DataManager {
     userEmail = ""
     userName = ""
     currentUser = {}
+    length = this.memories.length
     static getInstance() {
         if (DataManager.myInstance == null) {
             DataManager.myInstance = new DataManager()
@@ -115,5 +116,12 @@ export default class DataManager {
     updateMemory(newMemory, oldMemory) {
         var indexToUpdate = this.memories.indexOf(oldMemory)
         this.memories[indexToUpdate] = newMemory
+    }
+    getNewID() {
+        return this.length+1
+    }
+    createNewMemory(newMemory) {
+        this.memories.push(newMemory)
+        this.length = this.length+1
     }
 }

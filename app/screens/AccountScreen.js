@@ -33,9 +33,9 @@ export default function AccountScreen({navigation ,route}) {
             />
             <AppButton
                 onPress={() => {
-                    navigation.navigate("Edit Memories")
+                    navigation.navigate("Add Memories")
                 }}
-                title="Edit memories"
+                title="Create Memory"
                 style={{ marginTop: 60 }}
             />
         </AppScreen>

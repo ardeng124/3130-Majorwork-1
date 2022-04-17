@@ -22,13 +22,16 @@ export default function MemoriesScreen({navigation}) {
     const[refreshing, setRefreshing] = useState(false);
     const[memories, setMemories] = useState(initialMemories);
     const[modalVisible, setVisible] = useState(false)
+
     const[currentItem, setCurrentItem] = useState("")
+
     const handleRefresh = () => {
         data = DataManager.getInstance()
         initialMemories = data.getMemories(data.getCurrentUser().email)
         if(category != "NONE") {
             initialMemories = initialMemories.filter(item => item.category == category)
         }
+        console.log(initialMemories)
         setMemories(initialMemories)
     }
     const handleDelete = (itemToDelete) => {
@@ -42,7 +45,7 @@ export default function MemoriesScreen({navigation}) {
         setVisible(true)
     }
     const handleEdit = (item) => {
-        navigation.navigate("Edit Memories", { message: item })
+        navigation.navigate("Edit memories", {item:item})
     }
   return (
       <>

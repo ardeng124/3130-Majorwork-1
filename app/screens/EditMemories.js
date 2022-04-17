@@ -6,13 +6,21 @@ import AppTextInput from '../components/AppTextField'
 import AppButton from '../components/AppButton'
 import DataManager from '../config/DataManager';
 import { Formik } from 'formik';
+import * as Yup from 'yup';
+import BackButton from '../components/BackButton'
 
 data = DataManager.getInstance()
-export default function EditMemories({navigation, route}) {
 
-if(route.params.message !== 'none') {
+const schema = Yup.object().shape(
+    {
+        title: Yup.string().min(1).max(15),
+        category:  Yup.string().min(1).max(13),
+    }
+);
+export default function EditMemories({navigation, route}) {
+if(route.params.item !== 'none') {
   var handleDelete = ()=> {
-    data.deleteMemory(route.params.message.id)
+    data.deleteMemory(route.params.item.id)
     Alert.alert(
         "Sucess!",
         "Memory deleted, refresh to see changes",
@@ -26,32 +34,34 @@ if(route.params.message !== 'none') {
             cancelable: true,
         }
     )
+    navigation.navigate("Memories Screen")
+
   }
   
     return (
         <AppScreen>
-            <></>
+            <BackButton text="Back" navigation={navigation} backScreen="Memories Screen"/>
 
             <AppText style={styles.heading}>
-                {route && route.params.message.title}
+                {route && route.params.item.title}
             </AppText>
             <Image
                 style={styles.image}
-                source={route && route.params.message.image}
+                source={route && route.params.item.image}
             />
             <Formik
                 initialValues={{ title: "", category: "" }}
                 onSubmit={(values, { resetForm }) => {
                     resetForm()
                     data.updateMemory({
-                        id: route.params.message.id,
-                        email: route.params.message.email,
-                        title: values.title || route.params.message.title,
-                        date: route.params.message.date,
+                        id: route.params.item.id,
+                        email: route.params.item.email,
+                        title: values.title || route.params.item.title,
+                        date: route.params.item.date,
                         category:
-                            values.category || route.params.message.category,
-                        image: route.params.message.image,
-                    }, route.params.message)
+                            values.category || route.params.item.category,
+                        image: route.params.item.image,
+                    }, route.params.item)
                     Alert.alert(
                         "Sucess!",
                         "Memory updated, refresh to see changes",
@@ -64,20 +74,28 @@ if(route.params.message !== 'none') {
                             cancelable: true,
                         }
                     )
-                }}
+                    navigation.navigate("Memories Screen")
+                }
+            }
+                validationSchema = {schema}
+
             >
-                {({ values, handleChange, handleSubmit, errors }) => (
+                {({ values, handleChange, handleSubmit, errors, setFieldTouched}) => (
                     <>
                         <AppTextInput
-                            placeholder={route && route.params.message.title}
+                            placeholder={route && route.params.item.title}
                             onChangeText={handleChange("title")}
                             value={values.title}
-                        ></AppTextInput>
+                            onBlur = {() => setFieldTouched("title")}
+                            />
+                        <AppText style = {styles.errorText}> {errors.title}</AppText> 
                         <AppTextInput
-                            placeholder={route && route.params.message.category}
+                            placeholder={route && route.params.item.category}
                             onChangeText={handleChange("category")}
                             value={values.category}
-                        ></AppTextInput>
+                            onBlur = {() => setFieldTouched("category")}
+                            />
+                        <AppText style = {styles.errorText}> {errors.category}</AppText> 
                         <AppButton
                             title="Update memory"
                             icon="pencil"
@@ -131,5 +149,9 @@ const styles = StyleSheet.create({
     // aspectRatio:1,
     resizeMode:'contain',
     borderRadius:5
-  }
+  },
+  errorText:{
+    color:"red",
+    fontSize:17
+}
 })
