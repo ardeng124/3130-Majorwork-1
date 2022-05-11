@@ -96,7 +96,8 @@ export default function AddMemoryScreen({route, navigation}) {
         setImageError(selectedImage? "" : "Please choose an image")
 
         //return either true or false based off whether or not any errors occurred
-        return((titleError =="")&& (categoryError =="")&& (categoryError =="")&& (selectedImage)? true: false)
+        //line 100 change after submission:
+        return((titleError =="")&& (categoryError =="")&& (dateError =="")&& (selectedImage)? true: false)
 
     }
 // main content
