@@ -1,0 +1,15 @@
+3ac2802f5ea0e123e619052c749b8dc7
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _default = {
+  backgroundColour: "#9EC7D5",
+  tabBarColour: "#8cbdcd",
+  buttonColour: "#A099C1",
+  listItemBackgroundColour: "#A3CDDC",
+  inputColour: "#A0C1B9",
+  cardColour: "#ADD5e2"
+};
+exports.default = _default;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJiYWNrZ3JvdW5kQ29sb3VyIiwidGFiQmFyQ29sb3VyIiwiYnV0dG9uQ29sb3VyIiwibGlzdEl0ZW1CYWNrZ3JvdW5kQ29sb3VyIiwiaW5wdXRDb2xvdXIiLCJjYXJkQ29sb3VyIl0sInNvdXJjZXMiOlsiQXBwQ29sb3Vycy5qcyJdLCJzb3VyY2VzQ29udGVudCI6WyJcclxuZXhwb3J0IGRlZmF1bHQge1xyXG4gICAgYmFja2dyb3VuZENvbG91cjogXCIjOUVDN0Q1XCIsXHJcbiAgICB0YWJCYXJDb2xvdXI6XCIjOGNiZGNkXCIsXHJcbiAgICBidXR0b25Db2xvdXI6IFwiI0EwOTlDMVwiLFxyXG4gICAgbGlzdEl0ZW1CYWNrZ3JvdW5kQ29sb3VyOlwiI0EzQ0REQ1wiLFxyXG4gICAgaW5wdXRDb2xvdXI6IFwiI0EwQzFCOVwiLFxyXG4gICAgY2FyZENvbG91cjpcIiNBREQ1ZTJcIlxyXG5cclxufSAgICJdLCJtYXBwaW5ncyI6Ijs7OztlQUNlO0VBQ1hBLGdCQUFnQixFQUFFLFNBRFA7RUFFWEMsWUFBWSxFQUFDLFNBRkY7RUFHWEMsWUFBWSxFQUFFLFNBSEg7RUFJWEMsd0JBQXdCLEVBQUMsU0FKZDtFQUtYQyxXQUFXLEVBQUUsU0FMRjtFQU1YQyxVQUFVLEVBQUM7QUFOQSxDIn0=
